@@ -1,5 +1,7 @@
 import express from "express"
 import morgan from "morgan";
+import userRoutes from './routers/users.js'
+import coursesRoutes from './routers/courses.js'
 
 const tasks = [
     {
@@ -27,8 +29,11 @@ function middleware(req, res, next) {
     next();
 }
 
-app.use(middleware)
+app.use(express.json())
 
+app.use(middleware)
+app.use('/user', userRoutes)
+app.use('/courses', coursesRoutes)
 
 app.get('/', (req, res) => {
     console.log("req.requestBy", req.requestBy)
